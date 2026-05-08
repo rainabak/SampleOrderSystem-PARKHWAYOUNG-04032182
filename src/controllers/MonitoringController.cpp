@@ -36,7 +36,8 @@ void MonitoringController::handleDashboard()
 {
     const auto summary  = m_service.getOrderSummary();
     const auto statuses = m_service.getSampleStatuses();
-    m_view.showDashboard(summary, statuses);
+    const auto lines    = m_service.getActiveLines();
+    m_view.showDashboard(summary, statuses, lines);
 }
 
 void MonitoringController::handleOrderSummary()

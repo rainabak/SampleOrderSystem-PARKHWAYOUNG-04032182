@@ -8,12 +8,14 @@
 class MonitoringView
 {
 public:
-    void showMenu()                                                         const;
-    int  getMenuChoice()                                                    const;
-    void showMessage(const std::string& msg)                                const;
-    void showDashboard(const OrderSummary&              summary,
-                       const std::vector<SampleStatus>& statuses)           const;
-    void showOrderSummary(const OrderSummary& summary)                      const;
-    void showSampleList(const std::vector<SampleStatus>& statuses)          const;
-    void showProductionStatus(const std::vector<ProductionLine>& lines)     const;
+    void showMenu()                                                              const;
+    int  getMenuChoice()                                                         const;
+    void showMessage(const std::string& msg)                                     const;
+
+    void showDashboard(const OrderSummary&               summary,
+                       const std::vector<SampleStatus>&  statuses,
+                       const std::vector<ProductionLine>& lines)                 const;
+    void showOrderSummary(const OrderSummary& summary)                           const;
+    void showSampleList(const std::vector<SampleStatus>& statuses)               const;
+    void showProductionStatus(const std::vector<ProductionLine>& lines)          const;
 };
