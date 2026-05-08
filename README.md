@@ -269,3 +269,9 @@ JsonFileStorage  (JSON 파일 영속화)
 | Controller | 메뉴 흐름 제어, View ↔ Service 연결 | 업무 규칙 직접 구현 |
 | Service | 상태 전환 규칙, 재고 연동 | 직접 JSON 파일 접근 |
 | Repository | CRUD + JSON 직렬화/역직렬화 | 업무 규칙 포함 |
+
+
+## 테스트 화면
+<img width="870" height="762" alt="스크린샷 2026-05-08 164837" src="https://github.com/user-attachments/assets/a72bf7a0-00e2-41f5-b397-ab85db8dbd97" />
+<img width="870" height="762" alt="스크린샷 2026-05-08 164845" src="https://github.com/user-attachments/assets/936e4431-5451-437d-a111-6fc038dbf3dd" />
+
