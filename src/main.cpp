@@ -10,6 +10,7 @@
 #include "repositories/ShipmentRepository.h"
 
 // ── Services ─────────────────────────────────────────────────────
+#include "services/SampleService.h"
 #include "services/InventoryService.h"
 #include "services/OrderService.h"
 #include "services/ProductionService.h"
@@ -57,6 +58,7 @@ int main()
     ShipmentRepository       shipmentRepo(shipmentStorage);
 
     // ── Services (의존성 순서 준수) ───────────────────────────────
+    SampleService     sampleService    (sampleRepo);
     InventoryService  inventoryService (sampleRepo);
     OrderService      orderService     (orderRepo, productionLineRepo);
     ProductionService productionService(productionLineRepo, orderRepo,
@@ -83,7 +85,7 @@ int main()
     ShipmentView       shipmentView;
 
     // ── Controllers ───────────────────────────────────────────────
-    SampleController         sampleCtrl        (sampleView,         sampleRepo);
+    SampleController         sampleCtrl        (sampleView,         sampleService);
     OrderController          orderCtrl         (orderView,          orderService);
     ProductionLineController productionLineCtrl(productionLineView, productionService);
     ShipmentController       shipmentCtrl      (shipmentView,       shipmentService);

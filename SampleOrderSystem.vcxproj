@@ -147,6 +147,7 @@
     <ClCompile Include="src\repositories\OrderRepository.cpp" />
     <ClCompile Include="src\repositories\ProductionLineRepository.cpp" />
     <ClCompile Include="src\repositories\ShipmentRepository.cpp" />
+    <ClCompile Include="src\services\SampleService.cpp" />
     <ClCompile Include="src\services\MonitoringService.cpp" />
     <ClCompile Include="src\services\InventoryService.cpp" />
     <ClCompile Include="src\services\OrderService.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\repositories\ShipmentRepository.h" />
     <ClInclude Include="src\models\OrderSummary.h" />
     <ClInclude Include="src\models\Shipment.h" />
+    <ClInclude Include="src\services\SampleService.h" />
     <ClInclude Include="src\services\MonitoringService.h" />
     <ClInclude Include="src\services\InventoryService.h" />
     <ClInclude Include="src\services\OrderService.h" />
