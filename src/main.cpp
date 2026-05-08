@@ -60,7 +60,7 @@ int main()
     // ── Services (의존성 순서 준수) ───────────────────────────────
     SampleService     sampleService    (sampleRepo);
     InventoryService  inventoryService (sampleRepo);
-    OrderService      orderService     (orderRepo, productionLineRepo);
+    OrderService      orderService     (orderRepo, productionLineRepo, sampleRepo);
     ProductionService productionService(productionLineRepo, orderRepo,
                                         inventoryService, orderService);
     ShipmentService   shipmentService  (orderRepo, shipmentRepo, inventoryService);
