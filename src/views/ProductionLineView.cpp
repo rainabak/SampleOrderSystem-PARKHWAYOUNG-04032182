@@ -107,7 +107,7 @@ void ProductionLineView::showProductionStarted(const ProductionStartResult& r) c
               << "  주문 ID       : " << r.orderId          << "\n"
               << "  실 생산량     : " << r.actualQty        << " 개\n"
               << "  예상 생산시간 : " << r.totalTimeMins    << " 분\n"
-              << "  상태          : IDLE → RUNNING\n"
+              << "  상태          : IDLE -> RUNNING\n"
               << std::string(40, '-') << "\n";
 }
 
@@ -117,6 +117,6 @@ void ProductionLineView::showProductionCompleted(int orderId, int stockAdded) co
               << std::string(40, '-') << "\n"
               << "  주문 ID     : " << orderId    << "\n"
               << "  재고 증가량 : " << stockAdded << " 개\n"
-              << "  주문 상태   : PRODUCING → CONFIRMED\n"
+              << "  주문 상태   : PRODUCING -> CONFIRMED\n"
               << std::string(40, '-') << "\n";
 }
