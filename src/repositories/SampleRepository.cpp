@@ -1,4 +1,4 @@
-﻿#include "SampleRepository.h"
+#include "SampleRepository.h"
 #include "../persistence/JsonUtil.h"
 #include <algorithm>
 #include <sstream>
@@ -9,10 +9,12 @@ static std::string toJson(const Sample& s)
 {
     std::ostringstream oss;
     oss << "{"
-        << "\"id\":"            << s.id                                  << ","
-        << "\"name\":\""        << JsonUtil::escapeString(s.name)        << "\","
-        << "\"description\":\"" << JsonUtil::escapeString(s.description) << "\","
-        << "\"stock\":"         << s.stock
+        << "\"id\":"                << s.id                                  << ","
+        << "\"name\":\""            << JsonUtil::escapeString(s.name)        << "\","
+        << "\"description\":\""     << JsonUtil::escapeString(s.description) << "\","
+        << "\"stock\":"             << s.stock                               << ","
+        << "\"avgProductionTime\":" << s.avgProductionTime                   << ","
+        << "\"yield\":"             << s.yield
         << "}";
     return oss.str();
 }
@@ -32,13 +34,14 @@ static std::string buildJson(const std::vector<Sample>& samples, int nextId)
 
 static Sample fromJson(const std::string& obj)
 {
-    return Sample
-    {
-        JsonUtil::readInt(obj,    "id"),
-        JsonUtil::readString(obj, "name"),
-        JsonUtil::readString(obj, "description"),
-        JsonUtil::readInt(obj,    "stock")
-    };
+    Sample s;
+    s.id                = JsonUtil::readInt(obj,    "id");
+    s.name              = JsonUtil::readString(obj, "name");
+    s.description       = JsonUtil::readString(obj, "description");
+    s.stock             = JsonUtil::readInt(obj,    "stock");
+    s.avgProductionTime = JsonUtil::readInt(obj,    "avgProductionTime");
+    s.yield             = JsonUtil::readDouble(obj, "yield");
+    return s;
 }
 
 static void loadFromJson(const std::string& raw,
@@ -75,7 +78,14 @@ SampleRepository::SampleRepository(JsonFileStorage& storage)
 
 void SampleRepository::add(const Sample& sample)
 {
-    m_samples.push_back({ m_nextId++, sample.name, sample.description, sample.stock });
+    Sample newSample;
+    newSample.id                = m_nextId++;
+    newSample.name              = sample.name;
+    newSample.description       = sample.description;
+    newSample.stock             = sample.stock;
+    newSample.avgProductionTime = sample.avgProductionTime;
+    newSample.yield             = sample.yield;
+    m_samples.push_back(newSample);
     persist();
 }
 

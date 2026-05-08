@@ -69,6 +69,24 @@ int readInt(const std::string& json, const std::string& key)
     return numStr.empty() ? 0 : std::stoi(numStr);
 }
 
+double readDouble(const std::string& json, const std::string& key)
+{
+    const std::string search = "\"" + key + "\":";
+    size_t pos = json.find(search);
+    if (pos == std::string::npos) return 0.0;
+
+    pos += search.size();
+    while (pos < json.size() && (json[pos] == ' ' || json[pos] == '\t')) pos++;
+
+    std::string numStr;
+    if (pos < json.size() && json[pos] == '-') { numStr += '-'; pos++; }
+    while (pos < json.size() &&
+           (std::isdigit(static_cast<unsigned char>(json[pos])) || json[pos] == '.'))
+        numStr += json[pos++];
+
+    return numStr.empty() ? 0.0 : std::stod(numStr);
+}
+
 std::vector<std::string> splitObjects(const std::string& json)
 {
     std::vector<std::string> result;

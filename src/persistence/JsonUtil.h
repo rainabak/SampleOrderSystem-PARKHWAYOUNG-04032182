@@ -13,6 +13,9 @@ namespace JsonUtil
     // JSON 문자열에서 key에 해당하는 정수 값을 추출한다.
     int readInt(const std::string& json, const std::string& key);
 
+    // JSON 문자열에서 key에 해당하는 실수 값을 추출한다.
+    double readDouble(const std::string& json, const std::string& key);
+
     // JSON 최상위 "items" 배열에서 개별 객체 문자열 목록을 추출한다.
     std::vector<std::string> splitObjects(const std::string& json);
 }
