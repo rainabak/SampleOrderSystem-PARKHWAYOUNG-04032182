@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "IController.h"
 #include "../views/MainMenuView.h"
 
@@ -7,7 +7,8 @@ class MainController : public IController
 public:
     MainController(MainMenuView&  view,
                    IController&   sample,
-                   IController&   order,
+                   IController&   orderReceive,
+                   IController&   orderApproval,
                    IController&   productionLine,
                    IController&   monitoring,
                    IController&   shipment);
@@ -16,7 +17,8 @@ public:
 private:
     MainMenuView& m_view;
     IController&  m_sample;
-    IController&  m_order;
+    IController&  m_orderReceive;
+    IController&  m_orderApproval;
     IController&  m_productionLine;
     IController&  m_monitoring;
     IController&  m_shipment;

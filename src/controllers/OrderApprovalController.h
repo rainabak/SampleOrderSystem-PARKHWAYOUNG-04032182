@@ -3,10 +3,10 @@
 #include "../views/OrderView.h"
 #include "../services/OrderService.h"
 
-class OrderController : public IController
+class OrderApprovalController : public IController
 {
 public:
-    OrderController(OrderView& view, OrderService& service);
+    OrderApprovalController(OrderView& view, OrderService& service);
     void run() override;
 
 private:
@@ -14,6 +14,6 @@ private:
     OrderService& m_service;
 
     void handleChoice(int choice);
-    void handleCreate();
-    void handleList();
+    void handleApprove();
+    void handleReject();
 };

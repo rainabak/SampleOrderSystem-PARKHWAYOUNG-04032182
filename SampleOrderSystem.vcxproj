@@ -138,6 +138,7 @@
     <ClCompile Include="src\controllers\MainController.cpp" />
     <ClCompile Include="src\controllers\SampleController.cpp" />
     <ClCompile Include="src\controllers\OrderController.cpp" />
+    <ClCompile Include="src\controllers\OrderApprovalController.cpp" />
     <ClCompile Include="src\controllers\ProductionLineController.cpp" />
     <ClCompile Include="src\controllers\MonitoringController.cpp" />
     <ClCompile Include="src\controllers\ShipmentController.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="src\controllers\MainController.h" />
     <ClInclude Include="src\controllers\SampleController.h" />
     <ClInclude Include="src\controllers\OrderController.h" />
+    <ClInclude Include="src\controllers\OrderApprovalController.h" />
     <ClInclude Include="src\controllers\ProductionLineController.h" />
     <ClInclude Include="src\controllers\MonitoringController.h" />
     <ClInclude Include="src\controllers\ShipmentController.h" />

@@ -7,6 +7,7 @@ class OrderView
 {
 public:
     void        showMenu()                                const;
+    void        showApprovalMenu()                        const;
     int         getMenuChoice()                           const;
     void        showMessage(const std::string& msg)       const;
 

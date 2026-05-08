@@ -29,6 +29,7 @@
 #include "controllers/MainController.h"
 #include "controllers/SampleController.h"
 #include "controllers/OrderController.h"
+#include "controllers/OrderApprovalController.h"
 #include "controllers/ProductionLineController.h"
 #include "controllers/MonitoringController.h"
 #include "controllers/ShipmentController.h"
@@ -87,6 +88,7 @@ int main()
     // ── Controllers ───────────────────────────────────────────────
     SampleController         sampleCtrl        (sampleView,         sampleService);
     OrderController          orderCtrl         (orderView,          orderService);
+    OrderApprovalController  orderApprovalCtrl (orderView,          orderService);
     ProductionLineController productionLineCtrl(productionLineView, productionService);
     ShipmentController       shipmentCtrl      (shipmentView,       shipmentService);
     MonitoringController     monitoringCtrl    (monitoringView,     monitoringService);
@@ -94,6 +96,7 @@ int main()
     MainController controller(mainView,
                               sampleCtrl,
                               orderCtrl,
+                              orderApprovalCtrl,
                               productionLineCtrl,
                               monitoringCtrl,
                               shipmentCtrl);
