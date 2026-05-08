@@ -1,21 +1,21 @@
-﻿#pragma once
+#pragma once
 #include "IController.h"
 #include "../views/OrderView.h"
-#include "../repositories/IOrderRepository.h"
+#include "../services/OrderService.h"
 
 class OrderController : public IController
 {
 public:
-    OrderController(OrderView& view, IOrderRepository& repo);
+    OrderController(OrderView& view, OrderService& service);
     void run() override;
 
 private:
-    OrderView&        m_view;
-    IOrderRepository& m_repo;
+    OrderView&    m_view;
+    OrderService& m_service;
 
     void handleChoice(int choice);
     void handleCreate();
     void handleList();
-    void handleUpdate();
-    void handleDelete();
+    void handleStartProduction();
+    void handleCancel();
 };

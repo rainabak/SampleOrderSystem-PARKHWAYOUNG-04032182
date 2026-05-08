@@ -2,10 +2,8 @@
 #include "../utils/ConsoleUtil.h"
 
 MonitoringController::MonitoringController(MonitoringView& view, MonitoringService& service)
-    : m_view(view)
-    , m_service(service)
-{
-}
+    : m_view(view), m_service(service)
+{}
 
 void MonitoringController::run()
 {
@@ -13,10 +11,8 @@ void MonitoringController::run()
     {
         ConsoleUtil::clearScreen();
         m_view.showMenu();
-
-        int choice = m_view.getMenuChoice();
+        const int choice = m_view.getMenuChoice();
         if (choice == 0) break;
-
         handleChoice(choice);
         ConsoleUtil::pause();
     }
@@ -26,9 +22,10 @@ void MonitoringController::handleChoice(int choice)
 {
     switch (choice)
     {
-    case 1: handleDashboard();    break;
-    case 2: handleOrderSummary(); break;
-    case 3: handleSampleList();   break;
+    case 1: handleDashboard();        break;
+    case 2: handleOrderSummary();     break;
+    case 3: handleSampleList();       break;
+    case 4: handleProductionStatus(); break;
     default:
         m_view.showMessage("잘못된 입력입니다.");
         break;
@@ -52,4 +49,10 @@ void MonitoringController::handleSampleList()
 {
     const auto statuses = m_service.getSampleStatuses();
     m_view.showSampleList(statuses);
+}
+
+void MonitoringController::handleProductionStatus()
+{
+    const auto lines = m_service.getActiveLines();
+    m_view.showProductionStatus(lines);
 }

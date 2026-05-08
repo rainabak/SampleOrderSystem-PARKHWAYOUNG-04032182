@@ -1,10 +1,9 @@
-﻿#include "ShipmentController.h"
+#include "ShipmentController.h"
 #include "../utils/ConsoleUtil.h"
 
-ShipmentController::ShipmentController(ShipmentView& view)
-    : m_view(view)
-{
-}
+ShipmentController::ShipmentController(ShipmentView& view, ShipmentService& service)
+    : m_view(view), m_service(service)
+{}
 
 void ShipmentController::run()
 {
@@ -12,12 +11,8 @@ void ShipmentController::run()
     {
         ConsoleUtil::clearScreen();
         m_view.showMenu();
-
-        int choice = m_view.getMenuChoice();
-
-        if (choice == 0)
-            break;
-
+        const int choice = m_view.getMenuChoice();
+        if (choice == 0) break;
         handleChoice(choice);
         ConsoleUtil::pause();
     }
@@ -28,15 +23,14 @@ void ShipmentController::handleChoice(int choice)
     ConsoleUtil::printSeparator();
     switch (choice)
     {
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-        m_view.showMessage("준비 중입니다.");
-        break;
+    case 1: handleShip();    break;
+    case 2: handleHistory(); break;
     default:
         m_view.showMessage("잘못된 입력입니다.");
         break;
     }
     ConsoleUtil::printSeparator();
 }
+
+void ShipmentController::handleShip()    {}
+void ShipmentController::handleHistory() {}

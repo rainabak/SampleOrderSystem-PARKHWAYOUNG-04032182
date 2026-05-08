@@ -1,15 +1,22 @@
-﻿#pragma once
+#pragma once
 #include "IController.h"
 #include "../views/ProductionLineView.h"
+#include "../services/ProductionService.h"
 
 class ProductionLineController : public IController
 {
 public:
-    explicit ProductionLineController(ProductionLineView& view);
+    ProductionLineController(ProductionLineView& view, ProductionService& service);
     void run() override;
 
 private:
     ProductionLineView& m_view;
+    ProductionService&  m_service;
 
     void handleChoice(int choice);
+    void handleList();
+    void handleUpdateProgress();
+    void handleComplete();
+    void handlePause();
+    void handleResume();
 };

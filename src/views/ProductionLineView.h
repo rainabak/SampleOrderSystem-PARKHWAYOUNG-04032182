@@ -1,10 +1,17 @@
-﻿#pragma once
+#pragma once
 #include <string>
+#include <vector>
+#include "../models/ProductionLine.h"
 
 class ProductionLineView
 {
 public:
-    void showMenu()                            const;
-    int  getMenuChoice()                       const;
-    void showMessage(const std::string& msg)   const;
+    void showMenu()                                             const;
+    int  getMenuChoice()                                        const;
+    void showMessage(const std::string& msg)                    const;
+
+    int  promptLineId()                                         const;
+    int  promptProgress()                                       const;
+    void showLines(const std::vector<ProductionLine>& lines)    const;
+    void showLine(const ProductionLine& line)                   const;
 };

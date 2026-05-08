@@ -17,4 +17,5 @@ private:
     void handleDashboard();
     void handleOrderSummary();
     void handleSampleList();
+    void handleProductionStatus();
 };

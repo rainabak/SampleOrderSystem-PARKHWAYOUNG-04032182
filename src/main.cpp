@@ -1,25 +1,38 @@
 #include <windows.h>
 
-// ── 기존 레이어 ──────────────────────────────────────────────────
-#include "utils/ConsoleUtil.h"
+// ── Persistence ──────────────────────────────────────────────────
+#include "persistence/JsonFileStorage.h"
+
+// ── Repositories ─────────────────────────────────────────────────
+#include "repositories/SampleRepository.h"
+#include "repositories/OrderRepository.h"
+#include "repositories/ProductionLineRepository.h"
+#include "repositories/ShipmentRepository.h"
+
+// ── Services ─────────────────────────────────────────────────────
+#include "services/InventoryService.h"
+#include "services/OrderService.h"
+#include "services/ProductionService.h"
+#include "services/ShipmentService.h"
+#include "services/MonitoringService.h"
+
+// ── Views ─────────────────────────────────────────────────────────
 #include "views/MainMenuView.h"
 #include "views/SampleView.h"
 #include "views/OrderView.h"
 #include "views/ProductionLineView.h"
 #include "views/MonitoringView.h"
 #include "views/ShipmentView.h"
+
+// ── Controllers ───────────────────────────────────────────────────
 #include "controllers/MainController.h"
 #include "controllers/SampleController.h"
 #include "controllers/OrderController.h"
 #include "controllers/ProductionLineController.h"
 #include "controllers/MonitoringController.h"
 #include "controllers/ShipmentController.h"
-#include "persistence/JsonFileStorage.h"
-#include "repositories/SampleRepository.h"
-#include "repositories/OrderRepository.h"
-#include "services/MonitoringService.h"
 
-// ── SampleOrderSystem 레이어 ────────────────────────────────────
+// ── DummyData Generator ───────────────────────────────────────────
 #include "utils/RandomUtil.h"
 #include "generators/SampleGenerator.h"
 #include "generators/OrderGenerator.h"
@@ -31,16 +44,27 @@
 
 int main()
 {
-    // ── Persistence ──────────────────────────────────────────────
-    JsonFileStorage  sampleStorage("data/samples.json");
-    JsonFileStorage  orderStorage("data/orders.json");
-    SampleRepository sampleRepo(sampleStorage);
-    OrderRepository  orderRepo(orderStorage);
+    // ── Persistence ───────────────────────────────────────────────
+    JsonFileStorage sampleStorage         ("data/samples.json");
+    JsonFileStorage orderStorage          ("data/orders.json");
+    JsonFileStorage productionLineStorage ("data/production_lines.json");
+    JsonFileStorage shipmentStorage       ("data/shipments.json");
 
-    // ── Service ──────────────────────────────────────────────────
-    MonitoringService monitoringService(orderRepo, sampleRepo);
+    // ── Repositories ──────────────────────────────────────────────
+    SampleRepository         sampleRepo(sampleStorage);
+    OrderRepository          orderRepo(orderStorage);
+    ProductionLineRepository productionLineRepo(productionLineStorage);
+    ShipmentRepository       shipmentRepo(shipmentStorage);
 
-    // ── SampleOrderSystem ───────────────────────────────────────
+    // ── Services (의존성 순서 준수) ───────────────────────────────
+    InventoryService  inventoryService (sampleRepo);
+    OrderService      orderService     (orderRepo, productionLineRepo);
+    ProductionService productionService(productionLineRepo, orderRepo,
+                                        inventoryService, orderService);
+    ShipmentService   shipmentService  (orderRepo, shipmentRepo, inventoryService);
+    MonitoringService monitoringService(orderRepo, sampleRepo, productionLineRepo);
+
+    // ── DummyData Generator ───────────────────────────────────────
     RandomUtil              random;
     JsonFileWriter          writer("data");
     SampleGenerator         sampleGen(random);
@@ -50,7 +74,7 @@ int main()
     ConsoleView             consoleView;
     DummyDataController     dummyCtrl(consoleView, generatorService);
 
-    // ── View ─────────────────────────────────────────────────────
+    // ── Views ─────────────────────────────────────────────────────
     MainMenuView       mainView;
     SampleView         sampleView;
     OrderView          orderView;
@@ -58,12 +82,12 @@ int main()
     MonitoringView     monitoringView;
     ShipmentView       shipmentView;
 
-    // ── Controller ───────────────────────────────────────────────
-    SampleController         sampleCtrl(sampleView, sampleRepo);
-    OrderController          orderCtrl(orderView, orderRepo);
-    ProductionLineController productionLineCtrl(productionLineView);
-    MonitoringController     monitoringCtrl(monitoringView, monitoringService);
-    ShipmentController       shipmentCtrl(shipmentView);
+    // ── Controllers ───────────────────────────────────────────────
+    SampleController         sampleCtrl        (sampleView,         sampleRepo);
+    OrderController          orderCtrl         (orderView,          orderService);
+    ProductionLineController productionLineCtrl(productionLineView, productionService);
+    ShipmentController       shipmentCtrl      (shipmentView,       shipmentService);
+    MonitoringController     monitoringCtrl    (monitoringView,     monitoringService);
 
     MainController controller(mainView,
                               sampleCtrl,
