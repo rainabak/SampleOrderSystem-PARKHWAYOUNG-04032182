@@ -139,10 +139,31 @@ std::string OrderService::getLastError() const
     return m_lastError;
 }
 
+// ── 생산 완료 후 주문 확정 (ProductionService에서 호출) ──────────────────────
+
+bool OrderService::confirmOrder(int orderId)
+{
+    Order* order = m_orderRepo.findById(orderId);
+    if (!order)
+    {
+        m_lastError = "해당 ID의 주문을 찾을 수 없습니다.";
+        return false;
+    }
+    if (order->status != STATUS_PRODUCING)
+    {
+        m_lastError = "PRODUCING 상태의 주문만 확정할 수 있습니다. 현재 상태: " + order->status;
+        return false;
+    }
+    Order updated  = *order;
+    updated.status = STATUS_CONFIRMED;
+    m_orderRepo.update(updated);
+    m_lastError.clear();
+    return true;
+}
+
 // ── 다음 단계 구현 예정 ───────────────────────────────────────────────────────
 
 bool OrderService::startProduction(int, const std::string&) { return false; }
-bool OrderService::confirmOrder(int)                        { return false; }
 
 // ── private ───────────────────────────────────────────────────────────────────
 

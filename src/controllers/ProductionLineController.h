@@ -14,9 +14,8 @@ private:
     ProductionService&  m_service;
 
     void handleChoice(int choice);
-    void handleList();
-    void handleUpdateProgress();
+    void handleViewStatus();
+    void handleViewQueue();
+    void handleStartQueue();
     void handleComplete();
-    void handlePause();
-    void handleResume();
 };

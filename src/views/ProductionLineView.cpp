@@ -8,11 +8,10 @@ void ProductionLineView::showMenu() const
     std::cout << "============================\n"
               << "      생산 라인 관리        \n"
               << "============================\n"
-              << "  1. 라인 목록 조회\n"
-              << "  2. 진행률 갱신\n"
-              << "  3. 생산 완료 처리\n"
-              << "  4. 일시 중지\n"
-              << "  5. 재개\n"
+              << "  1. 생산 현황 조회\n"
+              << "  2. 생산 Queue 조회\n"
+              << "  3. 생산 시작 (Queue 다음 항목)\n"
+              << "  4. 생산 완료 처리\n"
               << "  0. 돌아가기\n"
               << "============================\n"
               << "선택: ";
@@ -98,4 +97,26 @@ void ProductionLineView::showLine(const ProductionLine& l) const
               << "\n  라인명  : " << l.lineName
               << "\n  상태    : " << l.status
               << "\n  진행률  : " << l.progress << "%\n\n";
+}
+
+void ProductionLineView::showProductionStarted(const ProductionStartResult& r) const
+{
+    std::cout << "\n생산 시작 완료\n"
+              << std::string(40, '-') << "\n"
+              << "  라인명        : " << r.lineName         << "\n"
+              << "  주문 ID       : " << r.orderId          << "\n"
+              << "  실 생산량     : " << r.actualQty        << " 개\n"
+              << "  예상 생산시간 : " << r.totalTimeMins    << " 분\n"
+              << "  상태          : IDLE → RUNNING\n"
+              << std::string(40, '-') << "\n";
+}
+
+void ProductionLineView::showProductionCompleted(int orderId, int stockAdded) const
+{
+    std::cout << "\n생산 완료 처리\n"
+              << std::string(40, '-') << "\n"
+              << "  주문 ID     : " << orderId    << "\n"
+              << "  재고 증가량 : " << stockAdded << " 개\n"
+              << "  주문 상태   : PRODUCING → CONFIRMED\n"
+              << std::string(40, '-') << "\n";
 }

@@ -61,7 +61,7 @@ int main()
     SampleService     sampleService    (sampleRepo);
     InventoryService  inventoryService (sampleRepo);
     OrderService      orderService     (orderRepo, productionLineRepo, sampleRepo, inventoryService);
-    ProductionService productionService(productionLineRepo, orderRepo,
+    ProductionService productionService(productionLineRepo, orderRepo, sampleRepo,
                                         inventoryService, orderService);
     ShipmentService   shipmentService  (orderRepo, shipmentRepo, inventoryService);
     MonitoringService monitoringService(orderRepo, sampleRepo, productionLineRepo);

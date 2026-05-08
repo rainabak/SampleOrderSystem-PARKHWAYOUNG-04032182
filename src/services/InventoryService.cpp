@@ -4,9 +4,26 @@ InventoryService::InventoryService(ISampleRepository& sampleRepo)
     : m_sampleRepo(sampleRepo)
 {}
 
-bool InventoryService::increase(int, int)          { return false; }
+bool InventoryService::increase(int sampleId, int qty)
+{
+    Sample* s = m_sampleRepo.findById(sampleId);
+    if (!s) return false;
+    Sample updated = *s;
+    updated.stock += qty;
+    return m_sampleRepo.update(updated);
+}
+
 bool InventoryService::increaseWithYield(int, int) { return false; }
-bool InventoryService::decrease(int, int)          { return false; }
+
+bool InventoryService::decrease(int sampleId, int qty)
+{
+    Sample* s = m_sampleRepo.findById(sampleId);
+    if (!s) return false;
+    if (s->stock < qty) return false;
+    Sample updated = *s;
+    updated.stock -= qty;
+    return m_sampleRepo.update(updated);
+}
 
 bool InventoryService::canFulfill(int sampleId, int qty) const
 {
