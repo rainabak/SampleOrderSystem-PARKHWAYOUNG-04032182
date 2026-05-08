@@ -50,25 +50,46 @@ int ShipmentView::promptOrderId() const
     }
 }
 
+void ShipmentView::showOrders(const std::vector<Order>& orders) const
+{
+    std::cout << "\n출고 가능 주문 (CONFIRMED)\n"
+              << std::right
+              << std::setw(6)  << "ID"
+              << std::setw(8)  << "시료ID"
+              << std::setw(8)  << "수량"
+              << "  고객사              제품명\n"
+              << std::string(60, '-') << "\n";
+    for (const auto& o : orders)
+    {
+        std::cout << std::right
+                  << std::setw(6)  << o.id
+                  << std::setw(8)  << o.sampleId
+                  << std::setw(8)  << o.quantity
+                  << "  " << std::left << std::setw(20) << o.customerName
+                  << o.productName << "\n";
+    }
+    std::cout << "\n";
+}
+
 void ShipmentView::showShipments(const std::vector<Shipment>& shipments) const
 {
-    std::cout << "\n"
-              << std::left
+    std::cout << "\n출고 이력\n"
+              << std::right
               << std::setw(6)  << "ID"
-              << std::setw(10) << "주문ID"
-              << std::setw(10) << "시료ID"
-              << std::setw(8)  << "수량"
-              << std::setw(16) << "고객사"
-              << "출고일자" << "\n"
-              << std::string(62, '-') << "\n";
+              << std::setw(8)  << "주문ID"
+              << std::setw(8)  << "시료ID"
+              << std::setw(6)  << "수량"
+              << "  출고일자    고객사\n"
+              << std::string(60, '-') << "\n";
     for (const auto& s : shipments)
     {
-        std::cout << std::setw(6)  << s.id
-                  << std::setw(10) << s.orderId
-                  << std::setw(10) << s.sampleId
-                  << std::setw(8)  << s.quantity
-                  << std::setw(16) << s.customerName
-                  << s.shippedAt << "\n";
+        std::cout << std::right
+                  << std::setw(6)  << s.id
+                  << std::setw(8)  << s.orderId
+                  << std::setw(8)  << s.sampleId
+                  << std::setw(6)  << s.quantity
+                  << "  " << std::left << std::setw(12) << s.shippedAt
+                  << s.customerName << "\n";
     }
     std::cout << "\n";
 }
