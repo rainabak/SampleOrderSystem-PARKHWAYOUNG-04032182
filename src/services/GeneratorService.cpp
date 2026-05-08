@@ -1,4 +1,4 @@
-#include "GeneratorService.h"
+﻿#include "GeneratorService.h"
 #include <map>
 
 GeneratorService::GeneratorService(JsonFileWriter&          writer,

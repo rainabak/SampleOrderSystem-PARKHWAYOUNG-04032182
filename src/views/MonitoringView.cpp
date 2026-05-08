@@ -1,4 +1,4 @@
-#include "MonitoringView.h"
+﻿#include "MonitoringView.h"
 #include <iomanip>
 #include <iostream>
 #include <limits>

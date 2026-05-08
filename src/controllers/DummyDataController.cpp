@@ -1,4 +1,4 @@
-#include "DummyDataController.h"
+﻿#include "DummyDataController.h"
 
 DummyDataController::DummyDataController(ConsoleView& view, GeneratorService& service)
     : m_view(view)

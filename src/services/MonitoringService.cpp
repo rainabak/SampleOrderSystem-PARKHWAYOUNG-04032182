@@ -1,4 +1,4 @@
-#include "MonitoringService.h"
+﻿#include "MonitoringService.h"
 
 static const std::string STATUS_RESERVED  = "RESERVED";
 static const std::string STATUS_PRODUCING = "PRODUCING";

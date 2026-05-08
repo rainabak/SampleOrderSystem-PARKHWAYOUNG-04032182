@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 
 // ── Persistence ──────────────────────────────────────────────────
 #include "persistence/JsonFileStorage.h"
