@@ -16,6 +16,6 @@ private:
     void handleChoice(int choice);
     void handleCreate();
     void handleList();
-    void handleStartProduction();
-    void handleCancel();
+    void handleApprove();
+    void handleReject();
 };
